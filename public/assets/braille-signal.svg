@@ -1,0 +1,21 @@
+<svg width="960" height="560" viewBox="0 0 960 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">IMU signal visualization</title>
+  <desc id="desc">A clean line visualization for wearable IMU time-series signals.</desc>
+  <rect width="960" height="560" rx="28" fill="#F8FAFC"/>
+  <rect x="62" y="58" width="836" height="444" rx="22" fill="#FFFFFF" stroke="#D8E2EE" stroke-width="2"/>
+  <path d="M120 422H840" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M120 342H840" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M120 262H840" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M120 182H840" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M120 102H840" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M120 442V98" stroke="#CBD5E1" stroke-width="2"/>
+  <path d="M120 442H840" stroke="#CBD5E1" stroke-width="2"/>
+  <path d="M120 310C160 298 178 231 220 250C262 269 282 386 324 372C366 358 385 187 432 172C479 157 500 306 544 294C588 282 604 148 652 142C700 136 720 254 762 248C804 242 816 184 840 176" stroke="#1D4ED8" stroke-width="7" stroke-linecap="round"/>
+  <path d="M120 360C159 368 185 336 224 326C263 316 286 333 326 316C366 299 390 238 432 238C474 238 500 304 544 316C588 328 610 286 652 276C694 266 716 302 760 292C804 282 820 244 840 236" stroke="#0F766E" stroke-width="7" stroke-linecap="round"/>
+  <path d="M120 220C160 200 178 236 220 218C262 200 282 130 324 144C366 158 386 250 432 250C478 250 500 180 544 186C588 192 608 260 652 256C696 252 716 196 760 202C804 208 820 284 840 280" stroke="#B45309" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="432" cy="172" r="11" fill="#1D4ED8"/>
+  <circle cx="652" cy="142" r="11" fill="#1D4ED8"/>
+  <rect x="126" y="466" width="142" height="12" rx="6" fill="#1D4ED8" opacity=".18"/>
+  <rect x="288" y="466" width="262" height="12" rx="6" fill="#0F766E" opacity=".2"/>
+  <rect x="570" y="466" width="184" height="12" rx="6" fill="#B45309" opacity=".2"/>
+</svg>
