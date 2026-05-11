@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="李上一，山东大学计算机科学与技术本科生，保研自我介绍 HTML 幻灯片。"
+    />
+    <title>李上一｜保研自我介绍</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --sdu-red: #a60b16;
+        --sdu-red-dark: #7d0710;
+        --sdu-red-soft: #fff2f2;
+        --ink: #111827;
+        --muted: #5b6472;
+        --line: #e4c8ca;
+        --paper: #ffffff;
+        --bg: #f7f2f2;
+        --gold: #b7791f;
+        --teal: #0f766e;
+        --blue: #1f4f8b;
+        --shadow: 0 22px 60px rgba(80, 18, 24, 0.14);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--ink);
+      }
+
+      body {
+        overflow: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .deck {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background:
+          linear-gradient(90deg, rgba(166, 11, 22, 0.06) 0 1px, transparent 1px 72px),
+          linear-gradient(0deg, rgba(166, 11, 22, 0.045) 0 1px, transparent 1px 72px),
+          var(--bg);
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: clamp(18px, 3vw, 42px);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(5%);
+        transition:
+          opacity 220ms ease,
+          transform 260ms ease;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
+      }
+
+      .sheet {
+        position: relative;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: min(1440px, calc(100vw - 44px));
+        aspect-ratio: 16 / 9;
+        max-height: calc(100vh - 44px);
+        border: 1px solid var(--line);
+        background: var(--paper);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .sheet::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 8px;
+        background: var(--sdu-red);
+      }
+
+      .slide-head,
+      .slide-foot {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: clamp(20px, 2.2vw, 32px) clamp(28px, 3.8vw, 58px);
+      }
+
+      .slide-head {
+        padding-bottom: 8px;
+      }
+
+      .slide-foot {
+        padding-top: 8px;
+        color: var(--muted);
+        font-size: clamp(12px, 1vw, 15px);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--sdu-red);
+        font-weight: 900;
+        letter-spacing: 0;
+      }
+
+      .brand img {
+        width: clamp(34px, 3.2vw, 48px);
+        height: clamp(34px, 3.2vw, 48px);
+        object-fit: contain;
+      }
+
+      .section-mark {
+        color: var(--muted);
+        font-weight: 800;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        padding: 0 clamp(32px, 4vw, 70px);
+        min-height: 0;
+      }
+
+      .kicker {
+        margin: 0 0 12px;
+        color: var(--sdu-red);
+        font-size: clamp(16px, 1.45vw, 22px);
+        font-weight: 900;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        color: var(--ink);
+        font-size: clamp(56px, 7.6vw, 112px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        margin-bottom: 24px;
+        color: var(--ink);
+        font-size: clamp(34px, 4.3vw, 66px);
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+        color: var(--ink);
+        font-size: clamp(20px, 2vw, 32px);
+        line-height: 1.25;
+      }
+
+      p,
+      li {
+        color: #2f3b4c;
+        font-size: clamp(17px, 1.55vw, 24px);
+        line-height: 1.58;
+      }
+
+      strong {
+        color: var(--ink);
+        font-weight: 900;
+      }
+
+      p,
+      li,
+      strong {
+        overflow-wrap: anywhere;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+        gap: clamp(28px, 4vw, 68px);
+        align-items: center;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(16px, 2vw, 28px);
+      }
+
+      .cover-photo {
+        justify-self: end;
+        width: min(30vw, 330px);
+        border: 5px solid #ffffff;
+        box-shadow: 0 20px 48px rgba(90, 18, 24, 0.22);
+      }
+
+      .tag-row,
+      .metric-row,
+      .contact-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .tag {
+        border: 1px solid var(--line);
+        background: var(--sdu-red-soft);
+        color: var(--sdu-red-dark);
+        padding: 8px 13px;
+        font-size: clamp(13px, 1vw, 16px);
+        font-weight: 900;
+      }
+
+      .inline-focus {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 0 8px;
+        vertical-align: baseline;
+      }
+
+      .metric {
+        border-left: 4px solid var(--sdu-red);
+        background: #fbf8f8;
+        padding: 18px 20px;
+      }
+
+      .metric b {
+        display: block;
+        color: var(--sdu-red-dark);
+        font-size: clamp(26px, 3.5vw, 48px);
+        line-height: 1.05;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: clamp(13px, 1.1vw, 18px);
+        font-weight: 800;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 18px;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 190px minmax(0, 1fr);
+        gap: 20px;
+        align-items: start;
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+      }
+
+      .period {
+        color: var(--sdu-red);
+        font-size: clamp(15px, 1.3vw, 20px);
+        font-weight: 900;
+      }
+
+      .timeline-item p {
+        margin-bottom: 0;
+      }
+
+      .project-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: clamp(26px, 3vw, 50px);
+        align-items: center;
+      }
+
+      .media-frame {
+        display: grid;
+        place-items: center;
+        min-height: 360px;
+        border: 1px solid var(--line);
+        background: #fbf8f8;
+        padding: 20px;
+      }
+
+      .media-frame img {
+        max-height: 420px;
+        object-fit: contain;
+      }
+
+      .bullet-list {
+        margin: 0;
+        padding-left: 1.15em;
+      }
+
+      .bullet-list li + li {
+        margin-top: 10px;
+      }
+
+      .ability {
+        min-height: 210px;
+        border-top: 5px solid var(--sdu-red);
+        background: #fbf8f8;
+        padding: 22px;
+      }
+
+      .ability p {
+        margin-bottom: 0;
+        font-size: clamp(16px, 1.35vw, 21px);
+      }
+
+      .award-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px 20px;
+      }
+
+      .award {
+        border-left: 5px solid var(--sdu-red);
+        background: #fbf8f8;
+        padding: 15px 18px;
+        color: #2f3b4c;
+        font-size: clamp(16px, 1.35vw, 21px);
+        font-weight: 800;
+        line-height: 1.45;
+      }
+
+      .closing {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 330px;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .contact-row a {
+        border-bottom: 2px solid rgba(166, 11, 22, 0.28);
+        color: var(--sdu-red-dark);
+        font-size: clamp(17px, 1.45vw, 22px);
+        font-weight: 900;
+      }
+
+      .qr-like {
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(90deg, transparent 0 38%, rgba(166, 11, 22, 0.08) 38% 62%, transparent 62%),
+          linear-gradient(0deg, transparent 0 38%, rgba(166, 11, 22, 0.08) 38% 62%, transparent 62%),
+          #fbf8f8;
+        padding: 26px;
+      }
+
+      .qr-like h3 {
+        color: var(--sdu-red-dark);
+      }
+
+      .qr-like p {
+        margin-bottom: 0;
+        font-size: clamp(15px, 1.2vw, 19px);
+      }
+
+      .controls {
+        position: fixed;
+        right: 22px;
+        bottom: 18px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .control-btn {
+        display: inline-grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.88);
+        color: var(--sdu-red-dark);
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: 900;
+      }
+
+      .counter {
+        min-width: 68px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.88);
+        padding: 10px 12px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      @media (max-width: 980px) {
+        html,
+        body {
+          overflow-x: hidden;
+        }
+
+        body {
+          overflow: auto;
+        }
+
+        .deck {
+          height: auto;
+          min-height: 100vh;
+          overflow: visible;
+        }
+
+        .slide {
+          position: relative;
+          display: none;
+          min-height: 100vh;
+          padding: 12px;
+        }
+
+        .slide.active {
+          display: grid;
+        }
+
+        .sheet {
+          width: 100%;
+          aspect-ratio: auto;
+          min-height: calc(100vh - 24px);
+          max-height: none;
+        }
+
+        .slide-head,
+        .slide-foot {
+          gap: 12px;
+          padding-right: 28px;
+          padding-left: 34px;
+        }
+
+        .section-mark {
+          max-width: 42%;
+          overflow-wrap: anywhere;
+          text-align: right;
+        }
+
+        .content {
+          padding-right: 34px;
+          padding-left: 34px;
+        }
+
+        .grid-2,
+        .project-layout,
+        .closing {
+          grid-template-columns: 1fr;
+        }
+
+        .grid-3,
+        .award-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cover-photo {
+          justify-self: start;
+          width: min(64vw, 250px);
+        }
+
+        .timeline-item {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+
+        .media-frame {
+          min-height: 240px;
+        }
+
+        .controls {
+          right: 12px;
+          bottom: 12px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .slide {
+          padding: 8px;
+        }
+
+        .sheet::before {
+          width: 5px;
+        }
+
+        .slide-head {
+          align-items: flex-start;
+          padding: 18px 22px 6px 30px;
+        }
+
+        .slide-foot {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 8px 22px 72px 30px;
+        }
+
+        .brand {
+          gap: 8px;
+          min-width: 0;
+        }
+
+        .brand span {
+          overflow-wrap: anywhere;
+        }
+
+        .section-mark {
+          display: none;
+        }
+
+        .content {
+          padding-right: 30px;
+          padding-left: 30px;
+        }
+
+        h1 {
+          font-size: clamp(52px, 19vw, 74px);
+        }
+
+        h2 {
+          font-size: clamp(30px, 11vw, 44px);
+        }
+
+        p,
+        li {
+          font-size: 17px;
+          line-height: 1.5;
+        }
+
+        .tag-row {
+          gap: 10px;
+        }
+
+        .tag {
+          padding: 7px 11px;
+        }
+
+        .control-btn {
+          width: 38px;
+          height: 38px;
+        }
+
+        .counter {
+          min-width: 58px;
+          padding: 8px 10px;
+        }
+
+        .controls {
+          right: auto;
+          left: 50%;
+          bottom: 8px;
+          transform: translateX(-50%);
+        }
+      }
+
+      @media (max-width: 430px) {
+        .cover-photo {
+          width: min(76vw, 250px);
+        }
+
+        .media-frame {
+          padding: 12px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .content {
+          padding-right: 24px;
+          padding-left: 24px;
+        }
+
+        .slide-head,
+        .slide-foot {
+          padding-left: 24px;
+        }
+      }
+
+      @media print {
+        body {
+          overflow: visible;
+          background: white;
+        }
+
+        .deck {
+          height: auto;
+          overflow: visible;
+          background: white;
+        }
+
+        .slide {
+          position: relative;
+          display: grid;
+          opacity: 1;
+          transform: none;
+          page-break-after: always;
+          padding: 0;
+        }
+
+        .sheet {
+          width: 100vw;
+          height: 56.25vw;
+          max-height: none;
+          box-shadow: none;
+        }
+
+        .controls {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="deck" aria-live="polite">
+      <section class="slide active" data-title="封面">
+        <div class="sheet">
+          <header class="slide-head">
+            <div class="brand">
+              <img src="/assets/sdu-emblem.png" alt="山东大学校徽" />
+              <span>山东大学</span>
+            </div>
+            <div class="section-mark">Self Introduction</div>
+          </header>
+          <div class="content grid-2">
+            <div>
+              <p class="kicker">计算机科学与技术｜菁英班</p>
+              <h1>李上一</h1>
+              <p>
+                面向保研与科研交流的个人介绍，主线聚焦
+                <span class="inline-focus">
+                  <strong>可穿戴计算</strong>
+                  <strong>移动感知</strong>
+                  <strong>健康计算</strong>
+                  <strong>端侧智能</strong>
+                </span>。
+              </p>
+              <div class="tag-row" aria-label="研究兴趣">
+                <span class="tag">可穿戴计算</span>
+                <span class="tag">Android / BLE</span>
+                <span class="tag">传感器数据</span>
+                <span class="tag">时序信号识别</span>
+              </div>
+            </div>
+            <img
+              class="cover-photo"
+              src="/assets/resume-photo-li-shangyi-red-bg-gpt-image-2.jpg"
+              alt="李上一证件照"
+            />
+          </div>
+          <footer class="slide-foot">
+            <span>202300130120@mail.sdu.edu.cn</span>
+            <span>github.com/SDLSY</span>
+          </footer>
+        </div>
+      </section>
+
+      <section class="slide" data-title="个人概况">
+        <div class="sheet">
+          <header class="slide-head">
+            <div class="brand">
+              <img src="/assets/sdu-emblem.png" alt="山东大学校徽" />
+              <span>个人概况</span>
+            </div>
+            <div class="section-mark">01</div>
+          </header>
+          <div class="content">
+            <p class="kicker">Education & Profile</p>
+            <h2>山东大学计算机科学与技术本科生</h2>
+            <div class="grid-3 metric-row">
+              <div class="metric">
+                <b>91.28 / 100</b>
+                <span>GPA</span>
+              </div>
+              <div class="metric">
+                <b>12 / 228</b>
+                <span>专业成绩排名，前 5.26%</span>
+              </div>
+              <div class="metric">
+                <b>CET-4 551</b>
+                <span>CET-6 489，英语演讲与辩论 97</span>
+              </div>
+            </div>
+            <p>
+              核心课程覆盖计算机网络、离散数学、高等数学、数据库系统、线性代数、计算机组成原理、概率论与电路等基础课程。
+            </p>
+          </div>
+          <footer class="slide-foot">
+            <span>山东大学｜计算机科学与技术学院菁英班</span>
+            <span>2023.09 - 2027.07</span>
+          </footer>
+        </div>
+      </section>
+
+      <section class="slide" data-title="项目主线">
+        <div class="sheet">
+          <header class="slide-head">
+            <div class="brand">
+              <img src="/assets/sdu-emblem.png" alt="山东大学校徽" />
+              <span>项目主线</span>
+            </div>
+            <div class="section-mark">02</div>
+          </header>
+          <div class="content">
+            <p class="kicker">Project Direction</p>
+            <h2>从可穿戴设备接入，到传感数据理解</h2>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="period">2025.11 - 2026.03</div>
+                <p>
+                  <strong>多源生理传感数据接入与端云协同健康辅助：</strong>
+                  围绕睡眠恢复与居家健康管理，完成戒指式传感硬件、Android App、云端服务、AI 问诊和报告理解等模块联调。
+                </p>
+              </div>
+              <div class="timeline-item">
+                <div class="period">2026.04 - 至今</div>
+                <p>
+                  <strong>基于戒指式可穿戴设备的盲文触摸信号识别：</strong>
+                  采集 6 轴 IMU 数据，构建单被试初步实验数据集，并探索时序信号分类与端侧实时识别。
+                </p>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-foot">
+            <span>可穿戴计算｜移动感知｜健康计算</span>
+            <span>Android / BLE / IMU / Time Series</span>
+          </footer>
+        </div>
+      </section>
+
+      <section class="slide" data-title="项目一">
+        <div class="sheet">
+          <header class="slide-head">
+            <div class="brand">
+              <img src="/assets/sdu-emblem.png" alt="山东大学校徽" />
+              <span>项目一</span>
+            </div>
+            <div class="section-mark">03</div>
+          </header>
+          <div class="content project-layout">
+            <div class="media-frame">
+              <img src="/assets/vespero-status.png" alt="健康辅助系统状态界面" />
+            </div>
+            <div>
+              <p class="kicker">2026 年全国大学生软件创新大赛全国三等奖</p>
+              <h2>多源生理传感数据接入与端云协同健康辅助</h2>
+              <ul class="bullet-list">
+                <li>团队项目，除视频制作外，核心系统开发、调试集成与材料整理主要由本人完成。</li>
+                <li>负责 Android 多模块应用与核心数据链路开发，完成 BLE 设备接入、实时数据展示、本地记录管理和云端接口对接。</li>
+                <li>接入 PPG、心率、血氧、体温、三轴加速度和三轴陀螺仪等多模态信号。</li>
+              </ul>
+            </div>
+          </div>
+          <footer class="slide-foot">
+            <span>Android｜BLE｜Room/SQLite｜Next.js｜Supabase</span>
+            <span>2025.11 - 2026.03</span>
+          </footer>
+        </div>
+      </section>
+
+      <section class="slide" data-title="项目二">
+        <div class="sheet">
+          <header class="slide-head">
+            <div class="brand">
+              <img src="/assets/sdu-emblem.png" alt="山东大学校徽" />
+              <span>项目二</span>
+            </div>
+            <div class="section-mark">04</div>
+          </header>
+          <div class="content project-layout">
+            <div>
+              <p class="kicker">单被试初步实验｜端侧实时识别探索</p>
+              <h2>基于戒指式可穿戴设备的盲文触摸信号识别</h2>
+              <ul class="bullet-list">
+                <li>使用 Hi90B 指环式传感设备采集 6 轴 IMU 数据，构建 26 个英文盲文字母触摸动作数据集。</li>
+                <li>每类不少于 100 组，共 2600 组有效样本，完成 CSV 清洗、基线校正、信号分段、特征提取和分类评估流程。</li>
+                <li>严格时序划分下，识别准确率由约 81% 提升至 87.2%，并分析 session bias 与跨用户泛化限制。</li>
+              </ul>
+            </div>
+            <div class="media-frame">
+              <img src="/assets/ring-signal-from-fourth-ppt.jpg" alt="戒指式可穿戴设备与多通道传感信号示意图" />
+            </div>
+          </div>
+          <footer class="slide-foot">
+            <span>Android 采集端｜IMU｜Python｜时序分类评估</span>
+            <span>2026.04 - 至今</span>
+          </footer>
+        </div>
+      </section>
+
+      <section class="slide" data-title="技术能力">
+        <div class="sheet">
+          <header class="slide-head">
+            <div class="brand">
+              <img src="/assets/sdu-emblem.png" alt="山东大学校徽" />
+              <span>技术能力</span>
+            </div>
+            <div class="section-mark">05</div>
+          </header>
+          <div class="content">
+            <p class="kicker">Skills</p>
+            <h2>能把设备、数据、应用和实验流程串起来</h2>
+            <div class="grid-3">
+              <div class="ability">
+                <h3>移动端与设备接入</h3>
+                <p>Java/Kotlin Android、BLE 通信、传感器数据采集、Room/SQLite、本地数据管理。</p>
+              </div>
+              <div class="ability">
+                <h3>信号与数据处理</h3>
+                <p>CSV 清洗、时序信号预处理、特征提取、分类评估、实验数据组织与可复现流程。</p>
+              </div>
+              <div class="ability">
+                <h3>系统工程实践</h3>
+                <p>Next.js、Supabase、REST API 联调、端云协同系统集成、Git 与 Linux 基础环境。</p>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-foot">
+            <span>C/C++｜Python｜Java/Kotlin Android｜TypeScript</span>
+            <span>系统实现 + 实验评估</span>
+          </footer>
+        </div>
+      </section>
+
+      <section class="slide" data-title="竞赛荣誉">
+        <div class="sheet">
+          <header class="slide-head">
+            <div class="brand">
+              <img src="/assets/sdu-emblem.png" alt="山东大学校徽" />
+              <span>竞赛与荣誉</span>
+            </div>
+            <div class="section-mark">06</div>
+          </header>
+          <div class="content">
+            <p class="kicker">Awards</p>
+            <h2>竞赛结果与综合表现</h2>
+            <div class="award-grid">
+              <div class="award">全国大学生软件创新大赛：2026 年全国三等奖、2025 年华东赛区二等奖</div>
+              <div class="award">蓝桥杯全国软件和信息技术专业人才大赛：C/C++ 程序设计大学 A 组省赛一等奖</div>
+              <div class="award">全国大学生数学建模竞赛：省二等奖</div>
+              <div class="award">一等学业奖学金、二等学业奖学金、校级三好学生</div>
+              <div class="award">山东大学黑客松二等奖、SDU Talk 铜奖</div>
+              <div class="award">山东省优秀社会实践奖</div>
+            </div>
+          </div>
+          <footer class="slide-foot">
+            <span>算法训练｜工程开发｜协作表达</span>
+            <span>项目经历支撑可穿戴健康系统开发能力</span>
+          </footer>
+        </div>
+      </section>
+
+      <section class="slide" data-title="总结">
+        <div class="sheet">
+          <header class="slide-head">
+            <div class="brand">
+              <img src="/assets/sdu-emblem.png" alt="山东大学校徽" />
+              <span>总结</span>
+            </div>
+            <div class="section-mark">07</div>
+          </header>
+          <div class="content closing">
+            <div>
+              <p class="kicker">Thank You</p>
+              <h2>希望继续围绕可穿戴感知与端侧智能做深入训练</h2>
+              <p>
+                我目前的优势是有从设备接入、移动端开发、端云联调到时序信号实验评估的连续实践经历。
+                后续希望在导师指导下，进一步补足科研方法、实验设计、模型评估与论文表达能力。
+              </p>
+              <div class="contact-row">
+                <a href="mailto:202300130120@mail.sdu.edu.cn">202300130120@mail.sdu.edu.cn</a>
+                <a href="https://github.com/SDLSY">github.com/SDLSY</a>
+              </div>
+            </div>
+            <div class="qr-like">
+              <h3>公开材料</h3>
+              <p>个人主页：sdlsy.github.io</p>
+              <p>简历下载：sdlsy.github.io/cv.pdf</p>
+              <p>本演示：sdlsy.github.io/intro/</p>
+            </div>
+          </div>
+          <footer class="slide-foot">
+            <span>李上一｜山东大学计算机科学与技术</span>
+            <span>Q&A</span>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <nav class="controls" aria-label="幻灯片导航">
+      <button class="control-btn" type="button" data-prev aria-label="上一页">‹</button>
+      <div class="counter" data-counter>1 / 8</div>
+      <button class="control-btn" type="button" data-next aria-label="下一页">›</button>
+    </nav>
+
+    <script>
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const counter = document.querySelector("[data-counter]");
+      const prev = document.querySelector("[data-prev]");
+      const next = document.querySelector("[data-next]");
+      let index = 0;
+
+      function render() {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === index);
+        });
+        counter.textContent = `${index + 1} / ${slides.length}`;
+        const title = slides[index].dataset.title || `第 ${index + 1} 页`;
+        document.title = `李上一｜${title}`;
+        history.replaceState(null, "", `#${index + 1}`);
+      }
+
+      function go(nextIndex) {
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        render();
+      }
+
+      const initial = Number.parseInt(location.hash.replace("#", ""), 10);
+      if (Number.isFinite(initial) && initial >= 1 && initial <= slides.length) {
+        index = initial - 1;
+      }
+
+      prev.addEventListener("click", () => go(index - 1));
+      next.addEventListener("click", () => go(index + 1));
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+          event.preventDefault();
+          go(index + 1);
+        }
+        if (event.key === "ArrowLeft" || event.key === "PageUp") {
+          event.preventDefault();
+          go(index - 1);
+        }
+        if (event.key === "Home") {
+          event.preventDefault();
+          go(0);
+        }
+        if (event.key === "End") {
+          event.preventDefault();
+          go(slides.length - 1);
+        }
+      });
+
+      render();
+    </script>
+  </body>
+</html>
