@@ -316,7 +316,7 @@ function buildPptx() {
   slide.background = { color: colors.paper };
   addHeader(slide, "03");
   addTitle(slide, profile.projects[0].period, profile.projects[0].title, 0.92);
-  slide.addImage({ path: path.join(assetDir, "health-agent-status.png"), x: 0.82, y: 2.2, w: 4.55, h: 3.15, sizing: { type: "contain", w: 4.55, h: 3.15 } });
+  slide.addImage({ path: path.join(assetDir, "project-health-agent-gpt-image.png"), x: 0.82, y: 2.2, w: 4.55, h: 3.15, sizing: { type: "contain", w: 4.55, h: 3.15 } });
   slide.addText(profile.projects[0].subtitle, { x: 5.72, y: 2.08, w: 6.4, h: 0.55, fontFace: "Microsoft YaHei", fontSize: 13, bold: true, color: colors.muted, fit: "shrink" });
   addBulletList(slide, profile.projects[0].points.slice(0, 3), 5.72, 2.86, 6.4, 13);
   addFooter(slide, "Android · BLE · Room/SQLite · Next.js · Supabase", "2026 年全国三等奖");
@@ -337,7 +337,7 @@ function buildPptx() {
   addHeader(slide, "05");
   addTitle(slide, profile.projects[1].period, profile.projects[1].title, 0.92);
   addBulletList(slide, profile.projects[1].points, 0.92, 2.15, 6.0, 13);
-  slide.addImage({ path: path.join(assetDir, "ring-signal-from-fourth-ppt.jpg"), x: 7.22, y: 2.05, w: 4.75, h: 3.3, sizing: { type: "contain", w: 4.75, h: 3.3 } });
+  slide.addImage({ path: path.join(assetDir, "project-braille-imu-gpt-image.png"), x: 7.22, y: 2.05, w: 4.75, h: 3.3, sizing: { type: "contain", w: 4.75, h: 3.3 } });
   addCard(slide, 7.22, 5.55, 2.2, 0.74, "2600", "有效样本");
   addCard(slide, 9.75, 5.55, 2.2, 0.74, "87.2%", "阶段准确率");
   addFooter(slide, "单被试初步实验 · 不夸大跨用户泛化", "Android 采集 · IMU · Python");

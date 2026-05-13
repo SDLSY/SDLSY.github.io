@@ -34,7 +34,7 @@ export const profile = {
       shortTitle: "健康管理智能体原型系统",
       period: "2025.11 - 2026.03",
       subtitle: "山东产业技术研究院（青岛）计算医学工程中心产学研合作项目；全国大学生软件创新大赛 2026 年全国三等奖。",
-      image: "/assets/health-agent-status.png",
+      image: "/assets/project-health-agent-gpt-image.png",
       imageAlt: "健康管理智能体原型系统界面",
       points: [
         "面向睡眠恢复与居家健康管理场景，参与构建以戒指式可穿戴设备为数据入口的端云协同健康管理原型，串联生理信号采集、状态分析、AI 问诊、报告理解、建议生成与干预反馈流程。",
@@ -51,7 +51,7 @@ export const profile = {
       shortTitle: "戒指式 IMU 盲文触摸信号识别",
       period: "2026.04 - 至今",
       subtitle: "在老师指导下开展；面向戒指式可穿戴设备 IMU 信号的盲文触摸动作识别与端侧实时识别探索。",
-      image: "/assets/ring-signal-from-fourth-ppt.jpg",
+      image: "/assets/project-braille-imu-gpt-image.png",
       imageAlt: "戒指式 IMU 信号采集示意图",
       points: [
         "使用戒指式 IMU 采集设备采集 6 轴惯性数据，构建 26 个英文盲文字母触摸动作的单被试初步实验数据集，每类不少于 100 组，共 2600 组有效样本。",
