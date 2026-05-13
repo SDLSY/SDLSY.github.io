@@ -1,77 +1,91 @@
-\documentclass[a4paper,10pt]{article}
-\usepackage[UTF8]{ctex}
-\usepackage[margin=1.2cm]{geometry}
-\usepackage{titlesec}
-\usepackage{enumitem}
+\documentclass[UTF8,fontset=windows,10pt]{ctexart}
+\usepackage[a4paper,left=1.25cm,right=1.25cm,top=0.9cm,bottom=0.55cm]{geometry}
 \usepackage{xcolor}
-\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
 
-\definecolor{sectioncolor}{RGB}{23, 63, 122}
-\titleformat{\section}{\large\bfseries\color{sectioncolor}}{}{0em}{}[\titlerule]
-\titlespacing{\section}{0pt}{8pt}{5pt}
-\setlist[itemize]{leftmargin=*,itemsep=1pt,parsep=1pt,topsep=2pt}
-\hypersetup{colorlinks=true,urlcolor=sectioncolor}
+\setmainfont{Arial}
+\setsansfont{Arial}
+\setCJKmainfont{Microsoft YaHei}
+\setCJKsansfont{Microsoft YaHei}
+
+\definecolor{ink}{HTML}{111827}
+\definecolor{muted}{HTML}{5B6472}
+\definecolor{accent}{HTML}{A60B16}
+\definecolor{line}{HTML}{E2C7C9}
+\definecolor{soft}{HTML}{FFF4F4}
 \pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\color{ink}
+
+\newcommand{\sectionhead}[1]{%
+  \vspace{7pt}%
+  \noindent{\color{accent}\rule{2.4pt}{9pt}}\hspace{5pt}{\bfseries\fontsize{11.4pt}{12.4pt}\selectfont #1}%
+  \hspace{6pt}\raisebox{0.5ex}{\color{line}\rule{\dimexpr\linewidth-34mm\relax}{0.4pt}}%
+  \par\vspace{3pt}%
+}
+
+\newcommand{\project}[3]{%
+  \vspace{4.2pt}
+  \noindent\textbf{\fontsize{9.8pt}{11.2pt}\selectfont #1}\hfill{\color{muted}#2}\par
+  \vspace{1pt}{\color{muted}\fontsize{9.25pt}{11.4pt}\selectfont #3}\par\vspace{-0.5pt}
+}
+
+\setlist[itemize]{
+  leftmargin=1.25em,
+  label=\raisebox{0.18ex}{\scriptsize\textbullet},
+  itemsep=1.5pt,
+  topsep=1pt,
+  parsep=0pt,
+  partopsep=0pt
+}
 
 \begin{document}
+\fontsize{9.78pt}{12.05pt}\selectfont
 
-\begin{center}
-    {\huge\bfseries 李 \ 上 \ 一} \\
-    \vspace{6pt}
-    山东大学 · 计算机科学与技术 \quad | \quad 政治面貌：共青团员 \\
-    邮箱：\href{mailto:202300130120@mail.sdu.edu.cn}{202300130120@mail.sdu.edu.cn}
-    \quad | \quad
-    GitHub：\href{https://github.com/SDLSY}{github.com/SDLSY}
-\end{center}
+{\fontsize{24pt}{26pt}\selectfont\bfseries 李上一}\par
+\vspace{2.5pt}
+{\color{accent}\fontsize{10.8pt}{12pt}\selectfont\bfseries 山东大学 \quad|\quad 计算机科学与技术}\par
+\vspace{4.5pt}
+\href{mailto:202300130120@mail.sdu.edu.cn}{202300130120@mail.sdu.edu.cn}\quad|\quad
+\href{https://github.com/SDLSY}{github.com/SDLSY}\quad|\quad
+\href{https://sdlsy.github.io/}{sdlsy.github.io}\par
+\vspace{1pt}
+\colorbox{soft}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\textbf{\color{accent}项目主线}\quad 戒指式可穿戴健康管理智能体原型系统；戒指式可穿戴设备盲文触摸信号识别。}}\par
 
-\section{教育背景}
-\textbf{山东大学 \ (Shandong University)} \hfill \textbf{2023.09 -- 2027.07} \\
-\textbf{专业：}计算机科学与技术 \hfill
-\textbf{GPA：}91.28 / 100 \hfill
-\textbf{专业成绩排名：}12 / 228 \\
-\textbf{研究兴趣：}可穿戴计算、移动感知、健康计算、边缘智能、端侧 AI \\
-\textbf{主修课程：}计算机网络(98)、离散数学(97)、高等数学 I/II(97/94)、数据库系统(95)、线性代数(94)、计算机组成原理(93)、概率论(92)、电路(100) \\
-\textbf{英语水平：}CET-4 551 \quad | \quad CET-6 489 \quad | \quad 英语演讲与辩论 97
+\sectionhead{教育背景}
+\textbf{山东大学（Shandong University）\quad 计算机科学与技术学院菁英班\quad 计算机科学与技术本科}\hfill{\color{muted}2023.09 - 2027.07}\par
+\textbf{GPA：91.28 / 100}\quad
+\textbf{专业成绩排名：12 / 228（前 5.26\%）}\quad
+\textbf{英语：}CET-4 551，CET-6 489，英语演讲与辩论 97\par
+\textbf{核心课程：}计算机网络(98)、离散数学(97)、高等数学 I/II(97/94)、数据库系统(95)、线性代数(94)、计算机组成原理(93)、概率论(92)、电路(100)
 
-\section{科研与项目经历}
-\textbf{长庚环 VesperO：智能戒指端云协同健康辅助系统} \hfill \textbf{2024.11 -- 至今} \\
-\textit{全国大学生软件创新大赛全国三等奖；团队项目，除视频制作外，核心开发、调试集成与材料整理主要由本人完成。}
+\sectionhead{科研与项目经历}
+\project{戒指式可穿戴多源生理信号驱动的健康管理智能体原型系统}{2025.11 - 2026.03}{\textbf{山东产业技术研究院（青岛）计算医学工程中心产学研合作项目}；\textbf{全国大学生软件创新大赛 2026 年全国三等奖}；团队项目，除视频制作外，核心系统开发、调试集成与材料整理主要由本人完成。技术关键词：Android、BLE、Room/SQLite、Next.js、Supabase、结构化问诊、RAG、报告理解。}
 \begin{itemize}
-    \item 面向睡眠恢复与居家健康管理场景，构建智能戒指、Android App、云端服务、AI 问诊、报告理解与后台管理组成的端云协同系统。
-    \item 负责 Android 多模块应用与核心链路开发，完成 BLE 设备接入、实时数据展示、本地数据管理、云端接口对接和 AI 辅助功能调试。
-    \item 接入真实智能戒指硬件，结合真实采集与演示数据，覆盖 PPG、心率、血氧、体温、三轴加速度和三轴陀螺仪等多模态数据。
-    \item 搭建本地异常检测、PPG/HRV/体温分析、睡眠分期服务和健康建议生成流程，形成从数据采集到反馈展示的业务闭环。
+  \item 面向睡眠恢复与居家健康管理场景，参与构建以\textbf{戒指式可穿戴设备}为数据入口的端云协同健康管理原型，串联生理信号采集、状态分析、AI 问诊、报告理解、建议生成与干预反馈流程。
+  \item 负责 \textbf{Android 多模块应用与核心数据链路开发}，完成 BLE 设备接入、实时数据展示、本地记录管理、云端接口对接和 AI 辅助功能调试。
+  \item 接入真实戒指式传感硬件，围绕 \textbf{PPG、心率、血氧、体温、三轴加速度和三轴陀螺仪}等多模态信号，完成采集、解析、展示与同步链路。
+  \item 联调\textbf{结构化问诊、风险分层、RAG 上下文、医检报告理解和干预任务生成}模块，将用户状态整理为可追踪的健康建议与执行反馈。
 \end{itemize}
 
-\textbf{基于戒指式可穿戴设备的盲文触摸信号识别} \hfill \textbf{2025.10 -- 至今} \\
-\textit{在老师指导下开展；面向智能戒指 IMU 信号的盲文触摸动作识别与端侧实时识别探索。}
+\project{基于戒指式可穿戴设备的盲文触摸信号识别}{2026.04 - 至今}{在老师指导下开展；面向戒指式可穿戴设备 IMU 信号的盲文触摸动作识别与端侧实时识别探索。技术关键词：Android 采集端、IMU、Python、CSV 清洗、时序分类评估。}
 \begin{itemize}
-    \item 使用 Hi90B 智能指环采集 6 轴 IMU 数据，构建 26 个英文盲文字母触摸动作的单被试初步实验数据集，每类不少于 100 组。
-    \item 搭建 Android 采集、CSV 清洗、信号分段、特征提取和分类评估流水线，比较手工时序特征、MiniROCKET、MultiRocketHydra 与小波去噪等方法。
-    \item 在严格时序划分下将识别准确率由约 81\% 提升至 87.2\%，并分析单会话采集带来的 session bias 与跨用户泛化限制。
+  \item 使用 \textbf{戒指式 IMU 采集设备}采集 6 轴惯性数据，构建 26 个英文盲文字母触摸动作的\textbf{单被试初步实验数据集}，每类不少于 100 组，共 2600 组有效样本。
+  \item 搭建 Android 采集、CSV 清洗、基线校正、信号分段、特征提取和分类评估流程，对比手工时序特征、MiniROCKET、MultiRocketHydra 与小波包去噪等方法。
+  \item 在严格时序划分下将识别准确率由约 \textbf{81\% 提升至 87.2\%}，并分析单会话采集带来的 session bias 与跨用户泛化限制。
 \end{itemize}
 
-\textbf{可视计算暑期课堂：基于目标跟踪的增强现实 (AR) 系统} \hfill \textbf{2024.07 -- 2024.08}
-\begin{itemize}
-    \item 使用 ORB + RANSAC 实现特征点稳健匹配，完成相机内参标定、3D 空间坐标变换和移动端实时渲染，达到 30FPS 虚实融合效果。
-\end{itemize}
+\sectionhead{专业技能}
+\textbf{编程与工程开发：}C/C++、Python、Java/Kotlin Android、TypeScript；Git、Linux、Android 多模块开发与接口联调。\par
+\textbf{移动感知与时序评估：}BLE 接入、传感器采集、PPG/心率/血氧/体温/IMU 解析；CSV 清洗、分段、特征提取与分类评估。\par
+\textbf{端云协同与 AI 应用：}Room/SQLite、Next.js、Supabase、REST API；结构化问诊、RAG、报告理解、健康建议生成。
 
-\textbf{OceanBase / MiniOB 数据库大赛性能调优} \hfill \textbf{2024.09 -- 2025.01}
-\begin{itemize}
-    \item 参与 MiniOB 存储与查询优化，接触 B+ 树索引、LRU-K 缓冲池和并发控制机制，获 OceanBase 大赛性能调优优胜。
-\end{itemize}
-
-\section{竞赛与荣誉}
-\begin{itemize}
-    \item \textbf{学科竞赛：}全国大学生软件创新大赛全国三等奖、华东赛区二等奖；蓝桥杯 C++ 省一等奖；全国大学生数学建模竞赛省级二等奖；OceanBase 大赛性能调优优胜。
-    \item \textbf{奖学金与荣誉：}一等学业奖学金(2024)、二等学业奖学金(2025)、校级三好学生(连续两年)、山东省优秀社会实践奖。
-\end{itemize}
-
-\section{专业技能}
-\begin{itemize}
-    \item \textbf{编程与开发：}熟悉 C/C++、Python、Java/Kotlin Android 开发，具备 Linux、Git、移动端工程和端云协同开发经验。
-    \item \textbf{智能感知与信号处理：}熟悉 BLE 通信、传感器数据采集、时序信号预处理、小波变换、卡尔曼滤波和基础机器学习实验流程。
-    \item \textbf{系统与工程：}了解数据库索引、缓存管理和并发控制，具备 Room/SQLite、Supabase、Next.js 云端服务和 ONNX 推理服务集成经验。
-\end{itemize}
+\sectionhead{竞赛与荣誉}
+\textbf{全国大学生软件创新大赛：}2026 年全国三等奖、2025 年华东赛区二等奖；项目经历体现可穿戴健康系统开发、Android/BLE 设备接入与端云协同实现能力。\par
+\textbf{蓝桥杯全国软件和信息技术专业人才大赛：}C/C++ 程序设计大学 A 组省赛一等奖，体现算法训练、程序设计和限时编码能力。\par
+\textbf{全国大学生数学建模竞赛：}省二等奖；参与建模、数据处理和论文表达，训练复杂问题拆解与协作表达能力。\par
+\textbf{奖学金与综合荣誉：}一等学业奖学金、二等学业奖学金、校级三好学生、山东大学黑客松二等奖、SDU Talk 铜奖、山东省优秀社会实践奖。
 
 \end{document}
