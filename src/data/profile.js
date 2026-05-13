@@ -9,7 +9,7 @@ export const profile = {
   github: "https://github.com/SDLSY",
   githubText: "github.com/SDLSY",
   homepage: "https://sdlsy.github.io/",
-  gpa: "91.28 / 100",
+  gpa: "91.52 / 100",
   rank: "12 / 228",
   rankPercent: "前 5.26%",
   cet: "CET-4 551；CET-6 489；英语演讲与辩论 97",
