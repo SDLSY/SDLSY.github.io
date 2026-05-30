@@ -20,6 +20,38 @@ export const profile = {
   focusLine: "戒指式可穿戴健康管理智能体原型系统；戒指式可穿戴设备盲文触摸信号识别",
   focusTags: ["可穿戴感知", "健康管理智能体", "端云协同", "时序信号识别"],
   interests: ["可穿戴计算", "移动感知", "健康计算", "端侧智能", "时序信号识别"],
+  signalPipeline: [
+    {
+      stage: "Ring",
+      label: "wearable input",
+      text: "戒指式可穿戴设备作为生理与惯性信号入口"
+    },
+    {
+      stage: "BLE",
+      label: "device link",
+      text: "低功耗蓝牙接入、实时解析与连接状态管理"
+    },
+    {
+      stage: "Android",
+      label: "mobile client",
+      text: "移动端展示、本地记录、采集流程与交互界面"
+    },
+    {
+      stage: "Cloud",
+      label: "sync layer",
+      text: "云端接口、数据同步、报告理解和上下文管理"
+    },
+    {
+      stage: "Agent",
+      label: "health loop",
+      text: "结构化问诊、风险分层、建议生成与反馈闭环"
+    },
+    {
+      stage: "IMU",
+      label: "time series",
+      text: "触摸动作分段、特征提取与分类评估"
+    }
+  ],
   labConsole: [
     {
       label: "currently",
