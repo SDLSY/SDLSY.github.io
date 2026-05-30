@@ -53,5 +53,5 @@
 - [x] Run text checks for old wording and phone number.
 - [x] Capture desktop and mobile screenshots with Playwright.
 - [x] Verify route nodes are focusable and the page title remains `Sensor Atlas`.
-- [ ] Commit and push to `main`.
-- [ ] Watch GitHub Pages deployment and verify the live page.
+- [x] Commit and push to `main`.
+- [x] Watch GitHub Pages deployment and verify the live page.
