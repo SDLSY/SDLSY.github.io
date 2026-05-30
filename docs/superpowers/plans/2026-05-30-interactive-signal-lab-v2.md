@@ -61,5 +61,5 @@
 - [x] Run local dev server.
 - [x] Capture desktop and mobile screenshots with Playwright.
 - [x] Compare implementation screenshots with concept images using `view_image`.
-- [ ] Commit and push to `main`.
-- [ ] Watch GitHub Pages deployment and verify the live homepage.
+- [x] Commit and push to `main`.
+- [x] Watch GitHub Pages deployment and verify the live homepage.
