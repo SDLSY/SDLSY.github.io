@@ -4,12 +4,12 @@ import "../styles/global.css";
 
 const emailHref = `mailto:${profile.email}`;
 const atlasNodes = [
-  { key: "ring", label: "Ring", detail: "wearable input" },
-  { key: "ble", label: "BLE", detail: "device link" },
-  { key: "android", label: "Android", detail: "mobile client" },
-  { key: "cloud", label: "Cloud", detail: "sync layer" },
-  { key: "agent", label: "Agent", detail: "health loop" },
-  { key: "imu", label: "IMU", detail: "time series" }
+  { key: "ring", label: "Ring", detail: "wearable input", text: "戒指式设备作为生理与惯性信号入口。" },
+  { key: "ble", label: "BLE", detail: "device link", text: "低功耗蓝牙完成设备连接、实时解析与传输。" },
+  { key: "android", label: "Android", detail: "mobile client", text: "移动端负责采集流程、本地记录和交互展示。" },
+  { key: "cloud", label: "Cloud", detail: "sync layer", text: "云端承接数据同步、报告理解和上下文管理。" },
+  { key: "agent", label: "Agent", detail: "health loop", text: "健康智能体组织问诊、风险分层和建议反馈。" },
+  { key: "imu", label: "IMU", detail: "time series", text: "IMU 时序用于触摸动作分段、特征提取和分类评估。" }
 ];
 const atlasRoutes = [
   { number: "01", title: "可穿戴多源信号", text: "PPG / HR / SpO2 / IMU", tone: "red" },
@@ -72,7 +72,7 @@ const atlasRoutes = [
           </dl>
         </div>
 
-        <div class="atlas-stage" aria-label="Interactive wearable signal atlas">
+        <div class="atlas-stage" data-atlas-stage aria-label="Interactive wearable signal atlas">
           <div class="atlas-title" aria-hidden="true">Sensor Atlas</div>
           <div class="atlas-scene" data-atlas-scene aria-hidden="true"></div>
           <div class="atlas-compass" aria-hidden="true">N</div>
@@ -80,12 +80,25 @@ const atlasRoutes = [
             <span>&gt; stream: ppg / imu / health</span>
             <span>&gt; route: ring → mobile → cloud → agent</span>
           </div>
+          <div class="atlas-readout" data-atlas-readout aria-live="polite">
+            <span>Explore route</span>
+            <strong>Sensor Atlas</strong>
+            <p>悬停或点击节点，查看信号从设备到智能体的流动路径。</p>
+          </div>
           {
             atlasNodes.map((node) => (
-              <div class={`atlas-node atlas-node-${node.key}`}>
+              <button
+                class={`atlas-node atlas-node-${node.key}`}
+                type="button"
+                tabindex="0"
+                data-atlas-node={node.key}
+                data-title={node.label}
+                data-detail={node.detail}
+                data-text={node.text}
+              >
                 <span>{node.label}</span>
                 <small>{node.detail}</small>
-              </div>
+              </button>
             ))
           }
         </div>
@@ -99,7 +112,7 @@ const atlasRoutes = [
         <div class="route-map" aria-label="Project route map">
           {
             atlasRoutes.map((route) => (
-              <article class={`route-stop route-stop-${route.tone}`}>
+              <article class={`route-stop route-stop-${route.tone}`} data-route-stop={route.number}>
                 <span>{route.number}</span>
                 <strong>{route.title}</strong>
                 <p>{route.text}</p>

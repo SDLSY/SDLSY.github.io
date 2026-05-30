@@ -332,10 +332,17 @@ dd {
   display: grid;
   gap: 2px;
   min-width: 116px;
+  border: 0;
   border-left: 2px solid currentColor;
-  padding-left: 12px;
+  background: transparent;
+  padding: 0 0 0 12px;
   color: var(--navy);
+  cursor: pointer;
+  font: inherit;
   font-weight: 900;
+  text-align: left;
+  appearance: none;
+  transition: opacity 180ms ease, transform 180ms ease, filter 180ms ease;
 }
 
 .atlas-node::before {
@@ -360,6 +367,26 @@ dd {
   color: var(--muted);
   font-size: 12px;
   font-weight: 800;
+}
+
+.atlas-node:hover,
+.atlas-node:focus-visible,
+.atlas-node.is-active {
+  filter: saturate(1.25);
+  transform: translateY(-3px);
+}
+
+.atlas-node:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 8px;
+}
+
+.atlas-stage.has-active .atlas-node.is-muted {
+  opacity: 0.34;
+}
+
+.atlas-node.is-active::before {
+  animation: routePulse 1.1s ease-in-out infinite;
 }
 
 .atlas-node-ring {
@@ -443,6 +470,43 @@ dd {
   font-weight: 800;
 }
 
+.atlas-readout {
+  position: absolute;
+  right: 6%;
+  top: 13%;
+  z-index: 5;
+  width: min(260px, 34%);
+  border: 1px solid rgba(230, 233, 239, 0.88);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 16px 44px rgba(16, 24, 39, 0.08);
+  padding: 16px 18px;
+  backdrop-filter: blur(12px);
+}
+
+.atlas-readout span {
+  display: block;
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.atlas-readout strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.atlas-readout p {
+  margin: 8px 0 0;
+  color: #344156;
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .atlas-routes,
 .section {
   padding: 84px 0;
@@ -502,6 +566,9 @@ dd {
   padding: 24px 10px 0;
   background:
     radial-gradient(circle at 50% 42%, rgba(16, 24, 39, 0.06) 0 1px, transparent 2px) 0 0 / 28px 28px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 360ms ease, transform 360ms ease, filter 180ms ease;
 }
 
 .route-stop::before {
@@ -536,6 +603,7 @@ dd {
 
 .route-stop-red {
   color: var(--red);
+  transform: translateY(0);
 }
 
 .route-stop-cyan {
@@ -556,6 +624,73 @@ dd {
 .route-stop-violet {
   color: var(--violet);
   transform: translateY(-10px);
+}
+
+.route-stop.is-pending {
+  opacity: 0.34;
+}
+
+.route-stop-red.is-pending {
+  transform: translateY(26px);
+}
+
+.route-stop-cyan.is-pending {
+  transform: translateY(52px);
+}
+
+.route-stop-blue.is-pending {
+  transform: translateY(4px);
+}
+
+.route-stop-green.is-pending {
+  transform: translateY(44px);
+}
+
+.route-stop-violet.is-pending {
+  transform: translateY(16px);
+}
+
+.route-stop.is-revealed {
+  opacity: 1;
+}
+
+.route-stop-red.is-revealed {
+  transform: translateY(0);
+}
+
+.route-stop-cyan.is-revealed {
+  transform: translateY(26px);
+}
+
+.route-stop-blue.is-revealed {
+  transform: translateY(-22px);
+}
+
+.route-stop-green.is-revealed {
+  transform: translateY(18px);
+}
+
+.route-stop-violet.is-revealed {
+  transform: translateY(-10px);
+}
+
+.route-stop.is-active {
+  filter: saturate(1.35);
+}
+
+.route-stop.is-active::before {
+  animation: routePulse 1.1s ease-in-out infinite;
+}
+
+@keyframes routePulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 12px color-mix(in srgb, currentColor 11%, transparent);
+  }
+
+  50% {
+    box-shadow: 0 0 0 18px color-mix(in srgb, currentColor 18%, transparent);
+  }
 }
 
 .route-log-list {
@@ -914,6 +1049,14 @@ dd {
     transform: none;
   }
 
+  .route-stop-red.is-revealed,
+  .route-stop-cyan.is-revealed,
+  .route-stop-blue.is-revealed,
+  .route-stop-green.is-revealed,
+  .route-stop-violet.is-revealed {
+    transform: none;
+  }
+
   .route-stop::before {
     position: absolute;
     left: 0;
@@ -978,7 +1121,7 @@ dd {
 
   .atlas-node {
     border-left-width: 1px;
-    padding-left: 9px;
+    padding: 0 0 0 9px;
   }
 
   .atlas-node span {
@@ -988,6 +1131,23 @@ dd {
   .atlas-node small,
   .atlas-status {
     display: none;
+  }
+
+  .atlas-readout {
+    left: 0;
+    right: auto;
+    top: auto;
+    bottom: 2%;
+    width: min(100%, 280px);
+    padding: 12px 14px;
+  }
+
+  .atlas-readout strong {
+    font-size: 17px;
+  }
+
+  .atlas-readout p {
+    font-size: 12px;
   }
 
   .atlas-compass {

@@ -3,7 +3,29 @@ import * as THREE from "three";
 const mount = document.querySelector("[data-atlas-scene]");
 
 if (mount instanceof HTMLElement) {
+  const stage = mount.closest("[data-atlas-stage]");
+  const nodeElements = stage ? Array.from(stage.querySelectorAll("[data-atlas-node]")) : [];
+  const routeStops = Array.from(document.querySelectorAll("[data-route-stop]"));
+  const readout = stage?.querySelector("[data-atlas-readout]");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const routeMeta = [
+    { key: "ring", color: 0xa60b16, angle: -2.55, tiltX: -0.05, tiltY: -0.12 },
+    { key: "ble", color: 0x2366b8, angle: -0.85, tiltX: -0.04, tiltY: 0.16 },
+    { key: "android", color: 0x15845f, angle: 0.02, tiltX: 0.02, tiltY: 0.22 },
+    { key: "cloud", color: 0x7750b8, angle: 0.74, tiltX: 0.08, tiltY: 0.14 },
+    { key: "agent", color: 0xe5a329, angle: 1.58, tiltX: 0.14, tiltY: 0.02 },
+    { key: "imu", color: 0x1796a8, angle: 2.36, tiltX: 0.05, tiltY: -0.18 }
+  ];
+  const routeStopMap = new Map([
+    ["01", "ring"],
+    ["02", "imu"],
+    ["03", "android"],
+    ["04", "cloud"],
+    ["05", "agent"]
+  ]);
+  const routeRecords = [];
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
   camera.position.set(0, 0.2, 6.5);
@@ -72,10 +94,7 @@ if (mount instanceof HTMLElement) {
   const routeGroup = new THREE.Group();
   scene.add(routeGroup);
 
-  const routeColors = [0xa60b16, 0x2366b8, 0x15845f, 0x7750b8, 0xe5a329, 0x1796a8];
-  const routeAngles = [-2.55, -0.85, 0.02, 0.74, 1.58, 2.36];
-
-  function makeRoute(angle, color) {
+  function makeRoute(meta) {
     const points = [];
     for (let i = 0; i < 80; i += 1) {
       const t = i / 79;
@@ -83,36 +102,44 @@ if (mount instanceof HTMLElement) {
       const bend = Math.sin(t * Math.PI) * 0.32;
       points.push(
         new THREE.Vector3(
-          Math.cos(angle + bend) * radius,
-          Math.sin(angle + bend) * radius * 0.72,
+          Math.cos(meta.angle + bend) * radius,
+          Math.sin(meta.angle + bend) * radius * 0.72,
           -0.35 + Math.sin(t * Math.PI * 2) * 0.08
         )
       );
     }
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const line = new THREE.Line(
-      geometry,
-      new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.52 })
-    );
+
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: meta.color,
+      transparent: true,
+      opacity: 0.52
+    });
+    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), lineMaterial);
     routeGroup.add(line);
 
     const particleGeometry = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(18 * 3);
     particleGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
-    const particles = new THREE.Points(
-      particleGeometry,
-      new THREE.PointsMaterial({
-        color,
-        size: 0.035,
-        transparent: true,
-        opacity: 0.72
-      })
-    );
-    particles.userData.points = points;
+    const particleMaterial = new THREE.PointsMaterial({
+      color: meta.color,
+      size: 0.035,
+      transparent: true,
+      opacity: 0.72
+    });
+    const particles = new THREE.Points(particleGeometry, particleMaterial);
     routeGroup.add(particles);
+
+    routeRecords.push({
+      ...meta,
+      points,
+      line,
+      particles,
+      lineMaterial,
+      particleMaterial
+    });
   }
 
-  routeAngles.forEach((angle, index) => makeRoute(angle, routeColors[index]));
+  routeMeta.forEach(makeRoute);
 
   const orbitGroup = new THREE.Group();
   scene.add(orbitGroup);
@@ -131,7 +158,55 @@ if (mount instanceof HTMLElement) {
     );
   }
 
-  const pointer = { x: 0, y: 0, active: false };
+  const pointer = { x: 0, y: 0, strength: 0 };
+  let activeKey = "";
+  let lockedKey = "";
+
+  function setReadout(element) {
+    if (!(readout instanceof HTMLElement)) return;
+    const overline = readout.querySelector("span");
+    const title = readout.querySelector("strong");
+    const body = readout.querySelector("p");
+    if (!overline || !title || !body) return;
+    if (!element) {
+      overline.textContent = "Explore route";
+      title.textContent = "Sensor Atlas";
+      body.textContent = "悬停或点击节点，查看信号从设备到智能体的流动路径。";
+      return;
+    }
+    overline.textContent = element.dataset.detail || "Signal route";
+    title.textContent = element.dataset.title || "Sensor Atlas";
+    body.textContent = element.dataset.text || "";
+  }
+
+  function setActiveRoute(key, { lock = false } = {}) {
+    if (lock) lockedKey = lockedKey === key ? "" : key;
+    activeKey = key || lockedKey || "";
+    const activeElement = nodeElements.find((node) => node.dataset.atlasNode === activeKey);
+    setReadout(activeElement);
+
+    stage?.classList.toggle("has-active", Boolean(activeKey));
+    nodeElements.forEach((node) => {
+      const isActive = node.dataset.atlasNode === activeKey;
+      node.classList.toggle("is-active", isActive);
+      node.classList.toggle("is-muted", Boolean(activeKey) && !isActive);
+      node.setAttribute("aria-pressed", lockedKey === node.dataset.atlasNode ? "true" : "false");
+    });
+
+    routeStops.forEach((stop) => {
+      const stopKey = routeStopMap.get(stop.dataset.routeStop || "");
+      const isActive = stopKey === activeKey || (activeKey === "ble" && stopKey === "android");
+      stop.classList.toggle("is-active", isActive);
+    });
+
+    routeRecords.forEach((record) => {
+      const isActive = record.key === activeKey;
+      const noActive = !activeKey;
+      record.lineMaterial.opacity = noActive ? 0.52 : isActive ? 0.92 : 0.1;
+      record.particleMaterial.opacity = noActive ? 0.72 : isActive ? 1 : 0.12;
+      record.particleMaterial.size = noActive ? 0.035 : isActive ? 0.06 : 0.024;
+    });
+  }
 
   function resize() {
     const rect = mount.getBoundingClientRect();
@@ -144,44 +219,88 @@ if (mount instanceof HTMLElement) {
 
   function animate(now = 0) {
     const time = reducedMotion.matches ? 2.6 : now / 1000;
-    const targetY = 0.58 + pointer.x * 0.22;
-    const targetX = -0.52 + pointer.y * 0.16;
-    root.rotation.y += (targetY - root.rotation.y) * 0.045;
-    root.rotation.x += (targetX - root.rotation.x) * 0.045;
+    const activeRecord = routeRecords.find((record) => record.key === activeKey);
+    const targetY = 0.58 + pointer.x * (0.2 + pointer.strength * 0.12) + (activeRecord?.tiltY || 0);
+    const targetX = -0.52 + pointer.y * (0.15 + pointer.strength * 0.08) + (activeRecord?.tiltX || 0);
+    root.rotation.y += (targetY - root.rotation.y) * 0.05;
+    root.rotation.x += (targetX - root.rotation.x) * 0.05;
     root.rotation.z = -0.08 + Math.sin(time * 0.34) * 0.035;
-    sensorGroup.rotation.z = -time * 0.22;
-    routeGroup.rotation.z = Math.sin(time * 0.18) * 0.035;
-    orbitGroup.rotation.z = time * 0.025;
+    sensorGroup.rotation.z = -time * (0.22 + pointer.strength * 0.18 + (activeKey ? 0.08 : 0));
+    routeGroup.rotation.z = Math.sin(time * 0.18) * (0.035 + pointer.strength * 0.025);
+    orbitGroup.rotation.z = time * (0.025 + pointer.strength * 0.018);
 
-    routeGroup.children.forEach((child, routeIndex) => {
-      if (!(child instanceof THREE.Points)) return;
-      const points = child.userData.points;
-      const positions = child.geometry.attributes.position.array;
+    routeRecords.forEach((record, routeIndex) => {
+      const isActive = record.key === activeKey;
+      const speed = 12 + pointer.strength * 18 + (isActive ? 16 : 0);
+      const positions = record.particles.geometry.attributes.position.array;
       for (let i = 0; i < 18; i += 1) {
-        const cursor = Math.floor(((time * 12 + i * 5 + routeIndex * 11) % points.length));
-        const point = points[cursor];
+        const cursor = Math.floor((time * speed + i * 5 + routeIndex * 11) % record.points.length);
+        const point = record.points[cursor];
         positions[i * 3] = point.x;
         positions[i * 3 + 1] = point.y;
         positions[i * 3 + 2] = point.z;
       }
-      child.geometry.attributes.position.needsUpdate = true;
+      record.particles.geometry.attributes.position.needsUpdate = true;
     });
 
     renderer.render(scene, camera);
     if (!reducedMotion.matches) window.requestAnimationFrame(animate);
   }
 
-  mount.addEventListener("pointermove", (event) => {
-    const rect = mount.getBoundingClientRect();
-    pointer.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-    pointer.y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-    pointer.active = true;
+  const pointerTarget = stage || mount;
+  pointerTarget.addEventListener("pointermove", (event) => {
+    const rect = pointerTarget.getBoundingClientRect();
+    const normalizedX = (event.clientX - rect.left) / rect.width - 0.5;
+    const normalizedY = (event.clientY - rect.top) / rect.height - 0.5;
+    pointer.x = normalizedX * 2;
+    pointer.y = normalizedY * 2;
+    pointer.strength = Math.max(0, 1 - Math.hypot(normalizedX, normalizedY) * 1.65);
   });
 
-  mount.addEventListener("pointerleave", () => {
+  pointerTarget.addEventListener("pointerleave", () => {
     pointer.x = 0;
     pointer.y = 0;
-    pointer.active = false;
+    pointer.strength = 0;
+    if (!lockedKey) setActiveRoute("");
+  });
+
+  nodeElements.forEach((node) => {
+    const key = node.dataset.atlasNode || "";
+    node.addEventListener("pointerenter", () => setActiveRoute(key));
+    node.addEventListener("focus", () => setActiveRoute(key));
+    node.addEventListener("pointerleave", () => {
+      if (lockedKey) setActiveRoute(lockedKey);
+      else setActiveRoute("");
+    });
+    node.addEventListener("blur", () => {
+      if (lockedKey) setActiveRoute(lockedKey);
+      else setActiveRoute("");
+    });
+    node.addEventListener("click", () => setActiveRoute(key, { lock: true }));
+    node.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        setActiveRoute(key, { lock: true });
+      }
+    });
+  });
+
+  const routeObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("is-pending");
+          entry.target.classList.add("is-revealed");
+          routeObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px 24% 0px", threshold: 0.02 }
+  );
+  routeStops.forEach((stop, index) => {
+    stop.classList.add("is-pending");
+    stop.style.transitionDelay = `${index * 70}ms`;
+    routeObserver.observe(stop);
   });
 
   const observer = new ResizeObserver(() => {
@@ -191,5 +310,6 @@ if (mount instanceof HTMLElement) {
   observer.observe(mount);
   reducedMotion.addEventListener("change", () => animate());
   resize();
+  setActiveRoute("");
   animate();
 }
