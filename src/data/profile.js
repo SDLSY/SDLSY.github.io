@@ -1,10 +1,14 @@
 export const profile = {
   name: "李上一",
+  englishName: "Li Shangyi",
   school: "山东大学",
   college: "计算机科学与技术学院菁英班",
   major: "计算机科学与技术",
   degree: "本科",
   period: "2023.09 - 2027.07",
+  identityLine: "Computer Science Student / Builder",
+  intro:
+    "I build systems around sensing and health. 最近主要在做戒指式可穿戴、移动端采集、端云协同和 IMU 时序识别。",
   email: "202300130120@mail.sdu.edu.cn",
   github: "https://github.com/SDLSY",
   githubText: "github.com/SDLSY",
@@ -16,6 +20,38 @@ export const profile = {
   focusLine: "戒指式可穿戴健康管理智能体原型系统；戒指式可穿戴设备盲文触摸信号识别",
   focusTags: ["可穿戴感知", "健康管理智能体", "端云协同", "时序信号识别"],
   interests: ["可穿戴计算", "移动感知", "健康计算", "端侧智能", "时序信号识别"],
+  labConsole: [
+    {
+      label: "currently",
+      value: "Science Island / wearable sensing"
+    },
+    {
+      label: "building",
+      value: "Personal Lab / health agent / IMU pipeline"
+    },
+    {
+      label: "reading",
+      value: "Mobile sensing / HCI / health data intelligence"
+    },
+    {
+      label: "location",
+      value: "Shandong / Hefei"
+    }
+  ],
+  now: [
+    {
+      title: "Personal Lab",
+      text: "把个人主页从一次性展示材料改成长期维护的工作台，记录项目、笔记、时间线和公开材料。"
+    },
+    {
+      title: "Wearable Sensing",
+      text: "围绕戒指式可穿戴设备整理生理信号、IMU 数据采集、端侧识别和健康管理原型。"
+    },
+    {
+      title: "Summer Camp Prep",
+      text: "准备科学岛夏令营的导师沟通、论文阅读和项目表达，把工程经历转化为可交流的研究问题。"
+    }
+  ],
   courses: [
     "计算机网络 98",
     "离散数学 97",
@@ -29,13 +65,17 @@ export const profile = {
   projects: [
     {
       id: "health-agent",
-      label: "核心项目",
+      label: "Project 01",
+      type: "System Prototype",
       title: "戒指式可穿戴多源生理信号驱动的健康管理智能体原型系统",
       shortTitle: "健康管理智能体原型系统",
       period: "2025.11 - 2026.03",
       subtitle: "山东产业技术研究院（青岛）计算医学工程中心产学研合作项目；全国大学生软件创新大赛 2026 年全国三等奖。",
       image: "/assets/project-health-agent-gpt-image.png",
       imageAlt: "健康管理智能体原型系统界面",
+      signal: "PPG / HR / SpO2 / temperature / IMU",
+      output: "health report, advice, feedback loop",
+      role: "Android / BLE / data pipeline / AI feature integration",
       points: [
         "面向睡眠恢复与居家健康管理场景，参与构建以戒指式可穿戴设备为数据入口的端云协同健康管理原型，串联生理信号采集、状态分析、AI 问诊、报告理解、建议生成与干预反馈流程。",
         "负责 Android 多模块应用与核心数据链路开发，完成 BLE 设备接入、实时数据展示、本地记录管理、云端接口对接和 AI 辅助功能调试。",
@@ -46,13 +86,17 @@ export const profile = {
     },
     {
       id: "braille-imu",
-      label: "科研探索",
+      label: "Project 02",
+      type: "Research Exploration",
       title: "基于戒指式可穿戴设备的盲文触摸信号识别",
       shortTitle: "戒指式 IMU 盲文触摸信号识别",
       period: "2026.04 - 至今",
       subtitle: "在老师指导下开展；面向戒指式可穿戴设备 IMU 信号的盲文触摸动作识别与端侧实时识别探索。",
       image: "/assets/project-braille-imu-gpt-image.png",
       imageAlt: "戒指式 IMU 信号采集示意图",
+      signal: "6-axis IMU",
+      output: "26-class braille touch recognition",
+      role: "data collection / cleaning / segmentation / classification evaluation",
       points: [
         "使用戒指式 IMU 采集设备采集 6 轴惯性数据，构建 26 个英文盲文字母触摸动作的单被试初步实验数据集，每类不少于 100 组，共 2600 组有效样本。",
         "搭建 Android 采集、CSV 清洗、基线校正、信号分段、特征提取和分类评估流程，对比手工时序特征、MiniROCKET、MultiRocketHydra 与小波包去噪等方法。",
@@ -73,6 +117,40 @@ export const profile = {
     {
       title: "端云协同与 AI 应用",
       text: "Room/SQLite、Next.js、Supabase、REST API；结构化问诊、RAG、报告理解、健康建议生成。"
+    }
+  ],
+  notes: [
+    {
+      title: "Mobile sensing reading list",
+      status: "reading",
+      text: "整理移动感知、可穿戴计算和健康数据智能相关论文，重点关注真实场景数据采集与跨用户泛化。"
+    },
+    {
+      title: "IMU recognition log",
+      status: "experiment",
+      text: "记录盲文触摸动作识别中的分段、特征、模型评估和 session bias 分析。"
+    },
+    {
+      title: "Android BLE notes",
+      status: "engineering",
+      text: "沉淀 BLE 接入、实时数据展示、本地记录和云端同步中遇到的工程问题。"
+    }
+  ],
+  timeline: [
+    {
+      year: "2023",
+      title: "Started CS at Shandong University",
+      text: "进入山东大学计算机科学与技术学院菁英班，打基础课程和程序设计能力。"
+    },
+    {
+      year: "2025",
+      title: "From courses to systems",
+      text: "参与软件创新大赛，开始把移动端、硬件接入和端云协同串成完整系统。"
+    },
+    {
+      year: "2026",
+      title: "Wearable health and IMU signals",
+      text: "继续推进健康管理智能体和戒指式 IMU 识别实验，进入科学岛夏令营。"
     }
   ],
   awards: [
